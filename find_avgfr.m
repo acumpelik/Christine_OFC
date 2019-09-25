@@ -98,3 +98,5 @@ ylabel('Number of neurons/sessions')
 
 length(smISIs)
 
+%%
+% This is a test to figure out how well this code syncs with Github
