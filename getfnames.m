@@ -3,8 +3,8 @@ function [fnames, units, depth, duplicate, rat, days] = getfnames
 %dataset.  cmc 10/20/16.
 
 %read in the excel spreadsheet.
-curdir = pwd;
-[xlnum, xceltxt, ~] = xlsread(strcat([curdir, filesep, 'prospect_fnames.xlsx']), 'OFC'); % 'OFC' refers to xls tab
+datadir = 'C:\Christine_data';
+[xlnum, xceltxt, ~] = xlsread(strcat([datadir, filesep, 'prospect_fnames.xlsx']), 'OFC'); % 'OFC' refers to xls tab
 
 
 rat = xceltxt(2:end,3);
