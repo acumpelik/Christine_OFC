@@ -42,10 +42,9 @@ for session = 1:length(fnames)
 %             totalSpikes = sum(n); % sum of spikes
 
             for trial = 1:length(trialTimes)
-                trialTimes(trial) = handles.end(trial)-handles.start(trial); %%% ADD WINDOWS
-                %%% DIVIDE EACH TRIAL'S SPIKES BY EACH TRIAL'S DURATION
+                trialTimes(trial) = handles.end(trial)-handles.start(trial);
                 trialTimes(trialTimes==0) = NaN;
-                trialTimes = trialTimes+2;
+                trialTimes = trialTimes+2; % 1+1 window per trial (2s per trial)
                 avgfr_trials(trial) = n(trial) / trialTimes(trial);
             end
 
