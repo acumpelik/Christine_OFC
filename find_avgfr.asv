@@ -31,7 +31,7 @@ for session = 1:length(fnames)
     
     %%% COUNT ONLY SPIKES FROM TRIALS & WINDOWS
     % Exclude multiunit neurons/sessions
-    if strcmp(units{session}(1), 's')==true % comparing strings (only first letter)
+    if strcmp(units{session}, 'single')==true % comparing strings
         % Count spikes in trials and windows, set window to 1 second
         n = nspikespertrials(spiketimes, handles, 1); % set window to 1s
         avgfr_trials = zeros(1, length(n)); % a vector of avg firing rates for each trial w/i session
