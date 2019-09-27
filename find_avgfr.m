@@ -26,7 +26,7 @@ avgfr_session = zeros(1, length(fnames));
 
 for session = 1:length(fnames)
     % Load .mat.mat file from parsed_data folder; filesep puts slash
-    load(strcat(['C:\Christine_OFC_2019\parsed_data', filesep, fnames{session}, '.mat']));
+    load(strcat(['C:\Christine_data\parsed_data', filesep, fnames{session}, '.mat']));
     trialTimes = zeros(1, length(handles.start)); % trial durations
     
     %%% COUNT ONLY SPIKES FROM TRIALS & WINDOWS
