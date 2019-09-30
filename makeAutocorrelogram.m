@@ -17,9 +17,21 @@ histogram(lags)
 imagesc(lags)
 
 %%
-bins = 0:0.001:5; % set to one ms
-binnedData = discretize(spiketimes, bins)
 
+% Step 1: bin the data into 1 ms bins
+
+trialStart = handles.start(6);
+trialEnd = handles.end(6);
+% wndw = 1;
+bins = trialStart:0.001:trialEnd+5; % 1 ms increments
+
+% bins = spiketimes(end)
+
+binnedData = discretize(spiketimes, bins);
+these = find(spiketimes>=trialStart-wndw & spiketimes<=trialEnd+wndw);
+
+
+% [cross, lags] = xcorr
 
 %% toy plot
 
