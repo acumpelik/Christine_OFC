@@ -2,8 +2,8 @@
 % spikeTrain = spiketimes
 
 % Step 1: bin spikes
-binlength = 1; % in seconds
-numBins = int64(length(spiketimes)/binlength);
+binlength = 0.001; % in seconds
+numBins = int64(length(spiketimes)/binlength); % this is wrong, not duration of trial
 [bins, binEdge] = discretize(spiketimes, numBins);
 
 
@@ -17,8 +17,8 @@ histogram(lags)
 imagesc(lags)
 
 %%
-bins = [0:0.001:5]; % set to one ms
-
+bins = 0:0.001:5; % set to one ms
+binnedData = discretize(spiketimes, bins)
 
 
 %% toy plot
