@@ -50,7 +50,11 @@ for trial=1:numTrials
     %cross = cross+cross;
 end
     
-stem(mean(cross,1))
+first10 = lags(5002:5012);
+sum(cross,1)
+stem(first10,sum(cross,1))
+% histogram(sum(cross,1))
+xlim([1,numBins])
 
 % stem(lags)
 

@@ -44,15 +44,24 @@ for trial = 1:numTrials                            % loop through all the trials
 end
 %% Compute autocorrelogram and plot
 
-cross = zeros(numTrials,numBins*2+1);
+cross = zeros(numTrials,numBins*2+1);       % define a matrix for xcorr of binned data (x2) for each trial
+                                            % plus 1 because you include the 0 point
 for trial=1:numTrials
     [cross(trial,:), lags] = xcorr(spikesBinned(trial,:), numBins);
-    %cross = cross+cross;
+                                            % for each trial compute the autocorrelogram
+                                            % (numBins is normalization I think?)
 end
-    
-stem(lags,sum(cross,1))
 
-xlim([1,numBins])
+sumcross = sum(cross,1);                    % sum ACG across all trials
+sumcrossNew = sumcross;
+sumcrossNew(5002) = 0;                      % get rid of the middle value, which is essentially an artifact
+
+stem(lags, sumcrossNew)                        % plot sum of ACGs at all trials at values specified by lags
+title('Session 14 autocorrelogram')
+xlabel('bin number')
+ylabel('correlation')
+
+% xlim([1,numBins])
 
 % stem(lags)
 
