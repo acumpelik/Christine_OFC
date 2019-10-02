@@ -1,0 +1,5 @@
+% This function will load trials from a certain session
+function loadSession(session)
+
+[fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
+                                            % determine parameters such as rat, if multiunit

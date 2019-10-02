@@ -1,7 +1,8 @@
-function find_avgfr
 % This function will find the average firing rate for all neurons that are not multiunit.
+function find_avgfr
 
-[fnames, units, ~, ~, rats] = getfnames; % get the filenames from the excel sheet, and determine whether multiunit
+[fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
+                                            % determine parameters such as rat, if multiunit
 
 %% Count spikes for entire session (including ITIs)
 % % Make a vector with all the sessions/units
