@@ -65,5 +65,5 @@ date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
                                             % create a timestamp so Matlab doesn't overwrite figures
 filename = strcat(['ACG_', num2str(session), '_', date]);
                                             % concatenate file name
-% savefig(filename)                           % save as .fig
+savefig(filename)                           % save as .fig
 saveas(gcf, filename, 'jpeg')               % save as .jpg
