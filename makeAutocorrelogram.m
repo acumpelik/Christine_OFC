@@ -1,9 +1,4 @@
-%% 1. ACG by trial - bin each trial
-% based on binspikes.m
-
-% % select a trial that has several spikes in it
-% trialStart = handles.start(439);
-% trialEnd = handles.end(439);
+%% ACG by trial - bin each trial
 
 %%%%%% PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dt = 0.001;                                         % bin size in s
@@ -42,7 +37,7 @@ for trial = 1:numTrials                            % loop through all the trials
     end
     
 end
-%% Compute autocorrelogram
+%% compute autocorrelogram
 
 cross = zeros(numTrials,numBins*2+1);       % define a matrix for xcorr of binned data (x2) for each trial
                                             % plus 1 because you include the 0 point
@@ -59,45 +54,16 @@ sumcrossNew(5002) = 0;                      % get rid of the middle value, which
 closeup = sumcrossNew(4952:5052);
 closeup_lags = lags(4952:5052);
 
-%% plot
-
-% stem(lags, sumcrossNew)                     % plot sum of ACGs at all trials (summed) at vals specified by lags
-
-% plt = stem(closeup, '.');
-% set(plt, 'Marker', 'none')
-
-bar(closeup_lags, closeup)
+%% plot and save
+figure
+ACG = bar(closeup_lags, closeup);
 title(['Session #', num2str(session)])
 xlabel('time (ms)')
 ylabel('correlation')
 
-% stem(lags)
-
-% %% 
-% % binnedData = discretize(spiketimes, bins);
-% these = find(spiketimes>=trialStart-wndw & spiketimes<=trialEnd+wndw);
-% 
-% %%
-% 
-% % try larger bins
-% dt = 0.1; % bin size in s
-% wndw = 1;
-% startTime = spiketimes(1);
-% tmin = spiketimes(1) - startTime;           % reset the start time to 0
-% tmax = spiketimes(500) - startTime;         % choose first n spikes
-% 
-% bins = tmin:dt:tmax;                        % formerly xvec
-% numBins = numel(bins);                      % number of bins
-% binedges = [bins,bins(end)+dt];
-% spktimes0 = spiketimes - startTime;  % make spiketimes start at 0
-% yind = discretize(spiketimes,binedges);
-% 
-% for m = 1:numBins
-%     spikesBinned(m) = sum(numel(spktimes0(yind==m)));
-% end
-% 
-% %%
-% acg = flipud(spikesBinned);
-% [cross, lags] = xcorr(acg);
-% stem(cross)
-
+date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
+                                            % create a timestamp so Matlab doesn't overwrite figures
+filename = strcat(['ACG_', num2str(session), '_', date]);
+                                            % concatenate file name
+% savefig(filename)                           % save as .fig
+saveas(gcf, filename, 'jpeg')               % save as .jpg

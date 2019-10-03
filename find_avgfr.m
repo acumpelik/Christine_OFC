@@ -4,25 +4,7 @@ function find_avgfr
 [fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
                                             % determine parameters such as rat, if multiunit
 
-%% Count spikes for entire session (including ITIs)
-% % Make a vector with all the sessions/units
-% avgfrAll = zeros(1, length(fnames));
-% 
-% for session = 1:length(fnames)
-%     load(strcat(['parsed_data', filesep, fnames{session}, '.mat']));
-%     % Count all the spikes in a session, including ITIs
-%     avgfrAll(1, session) = length(spiketimes) / (handles.end(end)-handles.start(1));
-%     
-%     histogram(avgfrAll, 50)
-%     title('Average firing rate distribution over all sessions')
-%     xlabel('Average firing rate (spikes per s)')
-%     ylabel('Number of neurons')
-%     hold on
-% end
-
-
 %% Count spikes only from trials and windows
-
 avgfr_session = zeros(1, length(fnames));
 
 for session = 1:length(fnames)
@@ -136,6 +118,3 @@ xlabel('ISI (ms)')
 ylabel('Number of neurons/sessions')
 
 length(smISIs)
-
-%%
-% This is a test to figure out how well this code syncs with Github
