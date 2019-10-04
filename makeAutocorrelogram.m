@@ -54,18 +54,19 @@ sumcrossNew(5002) = 0;                      % get rid of the middle value, which
 closeup = sumcrossNew(4952:5052);
 closeup_lags = lags(4952:5052);
 
-%% plot and save
-figure
-ACG = bar(closeup_lags, closeup);
-title(['Session #', num2str(session)])
-xlabel('time (ms)')
-ylabel('correlation')
-xlim([-50 50])
+%% plot
+% figure
+% ACG = bar(closeup_lags, closeup);
+% title(['Session #', num2str(session)])
+% xlabel('time (ms)')
+% ylabel('correlation')
+% xlim([-50 50])
 
-date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
-                                            % create a timestamp so Matlab doesn't overwrite figures
-filename = strcat(['ACG_', num2str(session), '_', date]);
-                                            % concatenate file name
-savefig(filename)                           % save as .fig
-
-saveas(gcf, filename, 'jpeg')               % save as .jpg
+%% save as .fig and .jpg
+% date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
+%                                             % create a timestamp so Matlab doesn't overwrite figures
+% filename = strcat(['ACG_', num2str(session), '_', date]);
+%                                             % concatenate file name
+% savefig(filename)                           % save as .fig
+% 
+% saveas(gcf, filename, 'jpeg')               % save as .jpg
