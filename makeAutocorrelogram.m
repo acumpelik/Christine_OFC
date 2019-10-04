@@ -60,10 +60,12 @@ ACG = bar(closeup_lags, closeup);
 title(['Session #', num2str(session)])
 xlabel('time (ms)')
 ylabel('correlation')
+xlim([-50 50])
 
 date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
                                             % create a timestamp so Matlab doesn't overwrite figures
 filename = strcat(['ACG_', num2str(session), '_', date]);
                                             % concatenate file name
 savefig(filename)                           % save as .fig
+
 saveas(gcf, filename, 'jpeg')               % save as .jpg
