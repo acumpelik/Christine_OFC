@@ -55,12 +55,12 @@ closeup = sumcrossNew(4952:5052);
 closeup_lags = lags(4952:5052);
 
 %% plot
-% figure
-% ACG = bar(closeup_lags, closeup);
-% title(['Session #', num2str(session)])
-% xlabel('time (ms)')
-% ylabel('correlation')
-% xlim([-50 50])
+figure
+ACG = bar(closeup_lags, closeup);
+title(['Session #', num2str(session)])
+xlabel('time (ms)')
+ylabel('correlation')
+xlim([-50 50])
 
 %% save as .fig and .jpg
 % date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
@@ -70,3 +70,17 @@ closeup_lags = lags(4952:5052);
 % savefig(filename)                           % save as .fig
 % 
 % saveas(gcf, filename, 'jpeg')               % save as .jpg
+
+%% ACG across all trials
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,7 +5,8 @@ function find_avgfr
                                             % determine parameters such as rat, if multiunit
 
 %% Count spikes only from trials and windows
-avgfr_session = zeros(1, length(fnames));
+numSessions = length(fnames);
+avgfr_session = zeros(1, numSessions);
 
 for session = 1:length(fnames)
     % Load .mat.mat file from parsed_data folder; filesep puts slash

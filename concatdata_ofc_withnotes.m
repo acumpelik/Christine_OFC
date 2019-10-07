@@ -1,7 +1,7 @@
 %script to compress the start, choice, and poke data into 3 separate files
 %just so that you aren't opening up tons of files
 
-cd('C:\Christine_OFC_2019')
+cd('C:\GitHub\Christine_OFC_code')
 [fnames, ~, ~, ~] = getfnames;
 
 
@@ -26,8 +26,8 @@ cd('C:\Christine_OFC_2019')
 %going to make 3-4 version of this structure for the main time-aligned rates
 
 
-%type = 'start'; %concat_ofc_start
-type = 'pokeend'; %concat_ofc_pokeend
+type = 'start'; %concat_ofc_start
+%type = 'pokeend'; %concat_ofc_pokeend
 %type = 'choice'; %concat_ofc_choice
 %type = 'lastflash'; %concat_lastflash
 %type = 'end'; %concat_lastflash
