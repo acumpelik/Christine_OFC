@@ -19,7 +19,16 @@ for ii = 1:numSessions
     sessionInfs{ii, 1} = [trialInfs];
 end
 
-
+%%
+counttInfs = zeros(length(sessionInfs), 1);
+jj = 0;
+num = 0;
+for jj = 1:length(sessionInfs)
+    numInf = sum(sum(sessionInfs{jj}));
+    num = numInf+num;
+    disp(num)
+%     counttInfs(jj) = num;
+end
 
 
 
