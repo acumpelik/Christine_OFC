@@ -1,5 +1,5 @@
-% This function will find the average firing rate for all neurons that are not multiunit.
-function find_avgfr
+% % This [function]script will find the average firing rate for all neurons that are not multiunit.
+% function find_avgfr
 
 [fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
                                             % determine parameters such as rat, if multiunit
