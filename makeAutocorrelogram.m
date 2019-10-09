@@ -27,9 +27,9 @@ for trial = 1:numTrials                            % loop through all the trials
         spikesTrial = spikestimes(these)-alignHandle(trial);
 %         spikes_binned(trial,:) = spikesTrial;
     end
-    binedges = [xvec,xvec(end)+dt];
+    binEdges = [xvec,xvec(end)+dt];
                                             % define the bin edges
-    yind = discretize(spikesTrial,binedges);
+    yind = discretize(spikesTrial,binEdges);
                                             % find indices of spikes
     
     for m = 1:numBins
