@@ -1,24 +1,24 @@
 % sample script to look at PSTH by reward volume
+%%%%%% 1. plotting a PSTH for a single session %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% make sure to change to where your data directory lives!
-cd('~/projects/ofc/data/PhysiologyData/Christine_OFC_2019')
-[fnames, units, ~, ~] = getfnames;
-f_ind = 741;
+cd('C:\Christine_data')                         % access data folder
+[fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
+f_ind = 1867;                                    % choose a session
 
-load(strcat([fnames{f_ind},'.mat']))
-[~, chosenval, hits, ~] = parse_choices(S);
-
+load(strcat([fnames{f_ind},'.mat']))            % load session
+[~, chosenval, hits, ~] = parse_choices(S);     % chosenval = reward amount rat received
+                                                % hits = 1 if the rat got water on that trial, 0 if
+                                                % he did not, and nan if he terminated by leaving poke
 %% 
-
 % basic way to plot a PSTH
-% plot(xvec_start,nanmean(hmat_start,1))
+% plot(xvec_start,nanmean(hmat_start,1))          % plot the mean of the raster plots aligned to the
+%                                                 % trial start aligned to a time period from -2 to 4
 
 % filter by rewards and certain rew. volume
-R6_mask = chosenval==6;
+R6_mask = chosenval==6;                         % a logical that finds trials where rat got 6 uL
 R12_mask = chosenval==12;
 R24_mask = chosenval==24;
 R48_mask = chosenval==48;
-
 
 figure(1)
 clf
@@ -35,13 +35,21 @@ plot(xvec_start,nanmean(hmat_start(R48_mask,:),1),'linewidth',2)
 set(gca,'fontsize',15)
 xlabel('time (s)')
 ylabel('rate (Hz)')
-title('PSTH, single neuron, by reward volume')
+title(strcat('PSTH, single neuron session',{' '}, num2str(f_ind), ', by reward volume'))
 legend('averaged','6 ul','12','24','48')
+
+date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
+                                            % create a timestamp so Matlab doesn't overwrite figures
+filename = strcat(['PSTH_byRewardVol_', num2str(session), '_', date]);
+                                            % concatenate file name
+savefig(filename)                           % save as .fig
+
+% saveas(gcf, filename, 'jpeg')               % save as .jpg
 
 %% look at all session rewards
 
 % load a concatenated data set that David made, and you have the code for
-a = load('concatdata_ofc_start.mat');
+a = load('concatdata_ofc_pokeend.mat');
 A = a.A;
 
 %%
