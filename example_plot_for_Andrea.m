@@ -38,12 +38,11 @@ ylabel('rate (Hz)')
 title(strcat('PSTH, single neuron session',{' '}, num2str(f_ind), ', by reward volume'))
 legend('averaged','6 ul','12','24','48')
 
-date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
-                                            % create a timestamp so Matlab doesn't overwrite figures
-filename = strcat(['PSTH_byRewardVol_', num2str(session), '_', date]);
-                                            % concatenate file name
-savefig(filename)                           % save as .fig
-
+% date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
+%                                             create a timestamp so Matlab doesn't overwrite figures
+% filename = strcat(['PSTH_byRewardVol_', num2str(session), '_', date]);
+%                                             concatenate file name
+% savefig(filename)                           % save as .fig
 % saveas(gcf, filename, 'jpeg')               % save as .jpg
 
 %% look at all session rewards
@@ -53,40 +52,40 @@ a = load('concatdata_ofc_pokeend.mat');
 A = a.A;
 
 %%
-ns_old = numel(A);
-usableVec = zeros(numel(A),1); % mask of sessions that are usable
-for j = 1:ns_old
-    % if you want to do more filtering, add it here. you arleady code for it
+
+numSessions_old = numel(A);                 % number of all sessions
+usableVec = zeros(numel(A),1);         % mask of sessions that are usable (fire more than 2x/trial)
+for j = 1:numSessions_old                   % filter sessions for all the things I want
+    % if you want to do more filtering, add it here. you already code for it
     % to remove multi unit
     if A{j}.isUsable
         usableVec(j) = 1;
     end
 end
-nsess = sum(usableVec); %number of usable session
+usableSessions = sum(usableVec);            % count usable sessions
 
-hmat_sess = zeros(nsess,numel(A{1}.xvec));
+hmat_usable = zeros(usableSessions,numel(A{1}.xvec)); % define a mask for XXXXXXXXX
 
-% loop over each session, and add to hmat_sess;
-use_inds = find(usableVec);
-nspikes_persession = zeros(nsess,1);
-for j = 1:nsess
-    if  A{use_inds(j)}.isUsable %if session is usuable, grab correct index
-     hmat_sess(j,:) = nanmean( A{use_inds(j)}.hmat,1 );
+% loop over each session, and PSTH add to hmat;
+usableInds = find(usableVec);               % indices of usable sessions
+nspikesPerSession = zeros(usableSessions,1); % define mask for spikes in session
+for j = 1:usableSessions
+    if  A{usableInds(j)}.isUsable           % if session is usable, grab correct index
+     hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 );
     end
     
     % average number (over trials) of spikes for each session
     % can chnage to firing rate if you want. would need to makes ure time
     % corresponds to when those spikes counts were taken
-    nspikes_persession(j) = nanmean(A{use_inds(j)}.nspikes);
+    nspikesPerSession(j) = nanmean(A{usableInds(j)}.nspikes);
 end
 
 
 %% order the data
-[B,I] = sort(nspikes_persession);
-hmat_sess_sorted = hmat_sess(I,:);
+[B,I] = sort(nspikesPerSession);
+hmat_sess_sorted = hmat_usable(I,:);
 
-
-surf(A{1}.xvec,1:nsess,hmat_sess_sorted)
+surf(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
 xlabel('time (s)')
 ylabel('session')
 set(gca,'fontsize',15)
