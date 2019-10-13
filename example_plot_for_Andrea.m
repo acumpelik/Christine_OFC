@@ -85,7 +85,33 @@ end
 [B,I] = sort(nspikesPerSession);
 hmat_sess_sorted = hmat_usable(I,:);
 
-surf(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
+% surf(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
+imagesc(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
+colormap hsv
 xlabel('time (s)')
 ylabel('session')
 set(gca,'fontsize',15)
+set(gca, 'TickDir', 'out'); box off; colorbar
+
+%% subset of high-firing data
+imagesc(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
+
+% count only sessions that have B greater than 100
+% variables are: B, hmat_sess_sorted, I
+
+% hmat_high_firing = zeros(sum(B>100), numel(A{1}.xvec);
+
+hmat_high_firing = hmat_sess_sorted(:, I(B>100));
+% imagesc(A{1}.xvec,1:usableSessions,hmat_sess_sorted)
+imagesc(A{1}.xvec,1:sum(B>100),hmat_high_firing)
+% 
+% for 1:length(B)
+%     if B>100:
+%         hma
+%     end
+% end
+
+
+    
+
+
