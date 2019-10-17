@@ -3,7 +3,7 @@
 
 cd('C:\Christine_data')                         % access data folder
 [fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
-f_ind = 1867;                                    % choose a session
+f_ind = 1168;                                    % choose a session
 
 load(strcat([fnames{f_ind},'.mat']))            % load session
 [~, chosenval, hits, ~] = parse_choices(S);     % chosenval = reward amount rat received
@@ -15,6 +15,7 @@ load(strcat([fnames{f_ind},'.mat']))            % load session
 %                                                 % trial start aligned to a time period from -2 to 4
 
 % filter by rewards and certain rew. volume
+Rchosen_mask = ~isnan(chosenval);
 R6_mask = chosenval==6;                         % a logical that finds trials where rat got 6 uL
 R12_mask = chosenval==12;
 R24_mask = chosenval==24;
@@ -22,7 +23,7 @@ R48_mask = chosenval==48;
 
 figure(1)
 clf
-plot(xvec_start,nanmean(hmat_start,1),'k','linewidth',2)
+plot(xvec_start,nanmean(hmat_start(Rchosen_mask,:),1),'k','linewidth',2)
 hold on
 plot(xvec_start,nanmean(hmat_start(R6_mask,:),1),'linewidth',2)
 
