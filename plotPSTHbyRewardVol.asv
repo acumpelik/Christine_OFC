@@ -1,25 +1,24 @@
 % sample script to look at PSTH by reward volume
-%%%%%% 1. plotting a PSTH for a single session %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% formerly example_plot_for_Andrea.m
 cd('C:\Christine_data')                         % access data folder
 [fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
-f_ind = 741;                                    % choose a session
 
+%% PSTH for a single session
+f_ind = 741;                                    % choose a session
 load(strcat([fnames{f_ind},'.mat']))            % load session
-[~, chosenval, hits, ~] = parse_choices(S);     % chosenval = reward amount rat received
+[~, chosenval, hits, ~] = parse_choices(S);     % import the following from parse_choices:
+                                                % chosenval = reward amount rat received
                                                 % hits = 1 if the rat got water on that trial, 0 if
-                                                % he did not, and nan if he terminated by leaving poke
-%% 
-% basic way to plot a PSTH
+                                                    % he did not, and nan if he terminated by
+                                                    % leaving poke
+                                                    
+%% filter
+                                                    
+                                                    
+%% plotting the PSTH
+% % basic way to plot a PSTH
 % plot(xvec_start,nanmean(hmat_start,1))          % plot the mean of the raster plots aligned to the
 %                                                 % trial start aligned to a time period from -2 to 4
-
-% filter by rewards and certain rew. volume
-RN_mask = ~isnan(chosenval);                        % a logical that finds only rewarded trials
-R6_mask = chosenval==6;                             % a logical that finds trials where rat got 6 uL
-R12_mask = chosenval==12;
-R24_mask = chosenval==24;
-R48_mask = chosenval==48;
 
 figure(1)
 clf
