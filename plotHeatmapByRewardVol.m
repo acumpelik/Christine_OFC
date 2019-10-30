@@ -7,6 +7,7 @@ A = a.A; % cell with 1881 sessions
 % count all sessions, and define a mask for counting sessions filtered according to my parameters
 numSessions_old = numel(A);                 % number of all sessions
 usableVec = zeros(numel(A),1);              % logical of usable sessions (fire more than 2x/trial)
+                                            % mean firing rate >= 0.5)
 
 % filter sessions for usability and other the things I want
 for j = 1:numSessions_old                   
