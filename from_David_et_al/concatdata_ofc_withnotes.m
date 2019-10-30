@@ -1,7 +1,7 @@
 %script to compress the start, choice, and poke data into 3 separate files
 %just so that you aren't opening up tons of files
 
-cd('C:\GitHub\Christine_OFC_code')
+cd('C:\GitHub\Christine_OFC_code\from_David_et_al\')
 [fnames, ~, ~, ~] = getfnames;
 
 

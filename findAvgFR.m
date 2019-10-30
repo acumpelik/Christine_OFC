@@ -1,4 +1,4 @@
-% % This [function]script will find the average firing rate for all neurons that are not multiunit.
+% % This script will find the average firing rate for all neurons that are not multiunit.
 % function find_avgfr
 
 [fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
