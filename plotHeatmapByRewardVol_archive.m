@@ -1,62 +1,13 @@
-% sample script to look at PSTH by reward volume
-% formerly example_plot_for_Andrea.m
-cd('C:\Christine_data')                         % access data folder
-[fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
-
-%% PSTH for a single session
-f_ind = 741;                                    % choose a session
-load(strcat([fnames{f_ind},'.mat']))            % load session
-[~, chosenval, hits, ~] = parse_choices(S);     % import the following from parse_choices:
-                                                % chosenval = reward amount rat received
-                                                % hits = 1 if the rat got water on that trial, 0 if
-                                                    % he did not, and nan if he terminated by
-                                                    % leaving poke
-                                                    
-%% filter
-                                                    
-                                                    
-%% plotting the PSTH
-% % basic way to plot a PSTH
-% plot(xvec_start,nanmean(hmat_start,1))          % plot the mean of the raster plots aligned to the
-%                                                 % trial start aligned to a time period from -2 to 4
-
-figure(1)
-clf
-plot(xvec_start,nanmean(hmat_start(RN_mask,:),1),'k','linewidth',2)
-hold on
-plot(xvec_start,nanmean(hmat_start(R6_mask,:),1),'linewidth',2)
-
-plot(xvec_start,nanmean(hmat_start(R12_mask,:),1),'linewidth',2)
-
-plot(xvec_start,nanmean(hmat_start(R24_mask,:),1),'linewidth',2)
-
-plot(xvec_start,nanmean(hmat_start(R48_mask,:),1),'linewidth',2)
-
-% plot designations
-set(gca,'fontsize',15)
-xlabel('time (s)')
-ylabel('rate (Hz)')
-title(strcat('PSTH, single neuron session',{' '}, num2str(f_ind), ', by reward volume'))
-legend('averaged','6 ul','12','24','48')
-
-% date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
-%                                             create a timestamp so Matlab doesn't overwrite figures
-% filename = strcat(['PSTH_byRewardVol_', num2str(session), '_', date]);
-%                                             concatenate file name
-% savefig(filename)                           % save as .fig
-% saveas(gcf, filename, 'jpeg')               % save as .jpg
-
 %% plot heatmap of all session rewards
 
-% load a concatenated data set that David made, and you have the code for
+% load David's concatenated data set
 a = load('concatdata_ofc_pokeend.mat');
-A = a.A;
-
-%%
+A = a.A; % cell with 1881 sessions
 
 % count all sessions, and define a mask for counting sessions filtered according to my parameters
 numSessions_old = numel(A);                 % number of all sessions
-usableVec = zeros(numel(A),1);              % logical of usable sessions (fire more than 2x/trial)
+usableVec = zeros(numel(A),1);              % logical of usable sessions (fire more than 2x/trial,
+                                            % mean firing rate >= 0.5)
 
 % filter sessions for usability and other the things I want
 for j = 1:numSessions_old                   
