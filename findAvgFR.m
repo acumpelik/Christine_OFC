@@ -5,6 +5,7 @@
                                             % determine parameters such as rat, if multiunit
 
 %% Count spikes only from trials and windows
+
 numSessions = length(fnames);
 avgfr_session = zeros(1, numSessions);
 
