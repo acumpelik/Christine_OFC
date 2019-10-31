@@ -10,11 +10,14 @@ numSessionsTotal = numel(A);                % number of all sessions
 usableVec = zeros(numel(A),1);              % logical of usable sessions (fire more than 2x/trial)
                                             % mean firing rate >= 0.5)
 
+[fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
+                                            % determine parameters such as rat, if multiunit
+                                            
 % filter sessions for usability and other the things I want
 for j = 1:numSessionsTotal                   
     % can add more filtering here. you already code for it to remove MUA
-    if A{j}.isUsable
+    if A{j}.isUsable && strcmp(units{j}(1), 's')==true
         usableVec(j) = 1;
     end
 end
-usableSessions = sum(usableVec);            % count number of usable sessions
+numUsableSessions = sum(usableVec);            % count number of usable sessions

@@ -1,21 +1,17 @@
-% % This script will find the average firing rate for all neurons that are not multiunit.
-% function find_avgfr
-
-[fnames, units, ~, ~, rats] = getfnames;    % get the filenames from the excel sheet
-                                            % determine parameters such as rat, if multiunit
-
+%% This script will find the average firing rate for all neurons.
 %% Count spikes only from trials and windows
+
+importDataset
+
 numSessions = length(fnames);
 avgfr_session = zeros(1, numSessions);
 
+
+
+
 for session = 1:numSessions
-    % Load .mat.mat file from parsed_data folder; filesep puts slash
-    load(strcat(['C:\Christine_data\parsed_data', filesep, fnames{session}, '.mat']));
     trialTimes = zeros(1, length(handles.start)); % trial durations
-    
-    %%% COUNT ONLY SPIKES FROM TRIALS & WINDOWS
-    % Exclude multiunit neurons/sessions
-    if strcmp(units{session}(1), 's')==true % comparing strings (only first letter)
+
         % Count spikes in trials and windows, set window to 1 second
         n = nspikespertrials(spiketimes, handles, 1); % set window to 1s
         avgfr_trials = zeros(1, length(n)); % a vector of avg firing rates for each trial w/i session
