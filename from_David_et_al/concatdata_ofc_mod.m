@@ -75,7 +75,8 @@ for j = 1:numel(fnames) % numel returns the number of elements in a matrix
    A{j}.left_prob = S.pd{:}.left_prob;
    A{j}.right_prob = S.pd{:}.right_prob;
    A{j}.fname = fnames{j};
-   A{j}.handles = handles;
+   A{j}.start = handles.start;
+   A{j}.end = handles.end;
    
    
    %classify cells as useable in analysis,

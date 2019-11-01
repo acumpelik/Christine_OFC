@@ -2,7 +2,7 @@
 % it will also incorporate the first for loop from find_avgfr.m
 
 % load David's concatenated data set
-a = load('concatdata_ofc_pokeend.mat');
+a = load('concatdata_ofc_start.mat');
 A = a.A; % cell array with 1881 sessions
 
 % count all sessions, and define a mask for counting sessions filtered according to my parameters

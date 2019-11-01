@@ -6,42 +6,11 @@ importDataset
 numSessions = length(fnames);
 avgfr_session = zeros(1, numSessions);
 
-
-
-
 for session = 1:numSessions
-    trialTimes = zeros(1, length(handles.start)); % trial durations
-
-        % Count spikes in trials and windows, set window to 1 second
-        n = nspikespertrials(spiketimes, handles, 1); % set window to 1s
-        avgfr_trials = zeros(1, length(n)); % a vector of avg firing rates for each trial w/i session
-        
-        % Only count neurons that fire more than 2x per trial and mean firing rate >=.5
-        nk = n>=2; % the output of this a logical
-        if nanmean(nk)>=.5
-% %             % sum all the spikes
-%             totalSpikes = sum(n);
-
-            for trial = 1:length(trialTimes)
-                % find each trial's duration
-                trialTimes(trial) = handles.end(trial)-handles.start(trial);
-                % if the trial duration is 0, make it a NaN so it doesn't crash later
-                trialTimes(trialTimes==0) = NaN;
-                % add window times
-                trialTimes = trialTimes+2; % 1+1 window per trial (2s per trial)
-                % find the average: divide number of spikes per trial by its duration
-                avgfr_trials(trial) = n(trial) / trialTimes(trial);
-            end
-            
-% %             find the total duration for all trials
-%             durationAllTrials = sum(trialTimes); % total time%
-            
-            % calculate average firing rate
-%             avgfr(session) = totalSpikes / durationAllTrials;
-
-            % find the average firing rate for all sessions
-            avgfr_session(session) = nanmean(avgfr_trials);
-        end
+    trialTimes = zeros(1, length(A{session}.start)); % trial durations
+    
+    if A{session}.hits == 1 % filter out sessions where the animal opted out (hits=0)
+        hmatAvgFR_session = nanmean(A{session}.hmat, 2);
     end
 end
 
