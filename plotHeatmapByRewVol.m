@@ -9,7 +9,7 @@ usableInds = find(usableVec);               % indices of usable sessions
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 for j = 1:numUsableSessions
     [~, chosenval, hits, ~] = parse_choices(S);
-    if  A{usableInds(j)}.isUsable & chosenval==6           % if session is usable, grab correct index
+    if  A{usableInds(j)}.isUsable && chosenval==6           % if session is usable, grab correct index
      hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 );
     end
     

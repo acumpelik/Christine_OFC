@@ -78,6 +78,9 @@ for j = 1:numel(fnames) % numel returns the number of elements in a matrix
    A{j}.start = handles.start;
    A{j}.end = handles.end;
    
+   load(strcat([fnames{j},'.mat']))
+   [~, chosenval, hits, ~] = parse_choices(S);
+   A{j}.chosenval = chosenval;
    
    %classify cells as useable in analysis,
    %having  >=2 spikes on half of trials
