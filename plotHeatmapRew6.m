@@ -25,12 +25,24 @@ end
 %% order and plot the z-scored heatmap
 
 % order the data
-% help
+[~, meanPSTHindex] = sort(mean(hmat_R6,2), 'ascend');
+hmat_R6_sorted = hmat_R6(meanPSTHindex, :);
 
-% plot(A{1}.xvec, hmat_R6(1,:));
-% imagesc(A{1}.xvec, 1:R6mask, hmat_R6)
-imagesc(A{1}.xvec, 1:R6mask, hmat_R6(1:100,:))
+avgFR_R6 = mean(hmat_R6_sorted, 2);  % find mean of hmat_sess_sorted rows
+std_R6 = std(hmat_R6_sorted, 0, 2);  % find STD of hmat_sess_sorted rows; w = 0 (default)
+normalized_hmat_R6 = (hmat_R6_sorted - avgFR_R6) ./ std_R6;
 
+
+% plot(A{1}.xvec, hmat_R6(1:652,:));
+imagesc(A{1}.xvec, 1:R6mask, normalized_hmat_R6)
+% imagesc(A{1}.xvec, 1:R6mask, hmat_R6(1:100,:))
+
+title('z-scored heatmap of firing rate for trials where rat got 6 uL')
+colormap default
+xlabel('time (s)')
+ylabel('trial')
+set(gca,'fontsize',15)
+set(gca, 'TickDir', 'out'); box off; colorbar
 
 
 
