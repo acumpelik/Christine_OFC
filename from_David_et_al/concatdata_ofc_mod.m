@@ -1,7 +1,7 @@
 %script to compress the start, choice, and poke data into 3 separate files
 %just so that you aren't opening up tons of files
 
-% AC edit 10/31/2019: adding handles
+% AC edit 10/31/2019: adding other stuff from the raw data (handles start and end)
 
 cd('C:\GitHub\Christine_OFC_code\from_David_et_al\')
 [fnames, ~, ~, ~] = getfnames;
