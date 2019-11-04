@@ -4,12 +4,15 @@ importDataset
 % define a heatmap mask with filtered sessions
 hmat_usable = zeros(numUsableSessions,numel(A{1}.xvec));
 
-% loop over each session, and add PSTH to hmat;
+% loop over each session, find trials where reward vol == 6, and add PSTH to hmat;
 usableInds = find(usableVec);               % indices of usable sessions
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 for j = 1:numUsableSessions
     [~, chosenval, hits, ~] = parse_choices(S);
-    if  A{usableInds(j)}.isUsable && chosenval==6           % if session is usable, grab correct index
+    if  A{usableInds(j)}.isUsable           % if session is usable, grab correct index
+        numTrials = length(A{j}.hmat);
+        for k = 1:numTrials
+            
      hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 );
     end
     
