@@ -1,4 +1,4 @@
-clear;clc
+% clear;clc
 importDataset
 %% generate heatmap of all trials where the rat got 6 uL
 % find all trials where chosenval==6 and session is usable
