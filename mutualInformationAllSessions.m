@@ -80,5 +80,13 @@ for session = 1:numSessions
     % 3. mutual information
     conditionalEntropy = (meanSpikingProbVolumes * pRvol) * conditionalExpectation;
     mutualInformation(session) = H_spikingStimPresent - conditionalEntropy;
-    disp(mutualInformation)
 end
+
+%%
+% plot(sort(mutualInformation))
+mutualInformationNewInds = ~isnan(mutualInformation);
+mutualInformationNew = mutualInformation(mutualInformationNewInds);
+plot(sort(mutualInformationNew))
+title('Mutual information across all neurons')
+xlabel('Session (neuron) #')
+ylabel('Mutual information (bits)')
