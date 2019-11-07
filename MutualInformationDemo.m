@@ -24,7 +24,8 @@ for trial = 1:numTrials
 end
 
 meanSpikingProbStimPresent = mean(binnedSpikesStimPresent_vec);
-
+H_spikingStimPresent = -meanSpikingProbStimPresent * log(meanSpikingProbStimPresent) - ...
+    (1-meanSpikingProbStimPresent)*log(1-meanSpikingProbStimPresent);
 %%
 meanSpikingProbR6 = [];
 meanSpikingProbR12 = [];
@@ -53,3 +54,28 @@ meanSpikingProbR6 = mean(spikesR6);
 meanSpikingProbR12 = mean(spikesR12);
 meanSpikingProbR24 = mean(spikesR24);
 meanSpikingProbR48 = mean(spikesR48);
+
+%% calculate entropy: binary entropy function
+% 3. mutual information
+
+% 1. conditional expectation
+conditionalExpectation = zeros(4, 1);
+meanSpikingProbVolumes = [meanSpikingProbR6, meanSpikingProbR12, meanSpikingProbR24, meanSpikingProbR48];
+for volume = 1:4
+    p_v = meanSpikingProbVolumes(volume);
+    conditionalExpectation(volume) = -p_v * log(p_v) - (1-p_v)*log(1-p_v);
+end
+%%
+% 2. conditional entropy
+pRvol = 0.25; % probability that the reward equals any of the four volumes (approximated)
+conditionalEntropy = zeros(4, 1);
+for volume = 1:4
+    conditionalEntropy(volume) = conditionalExpectation(volume);
+end
+%%
+conditionalEntropy = (meanSpikingProbVolumes * pRvol) * conditionalExpectation;
+mutualInformation = H_spikingStimPresent - conditionalEntropy;
+
+
+
+
