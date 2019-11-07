@@ -84,8 +84,9 @@ end
 
 %%
 % plot(sort(mutualInformation))
-mutualInformationNewInds = ~isnan(mutualInformation);
-mutualInformationNew = mutualInformation(mutualInformationNewInds);
+mutualInformationNewLogical = ~isnan(mutualInformation);
+mutualInformationNew = mutualInformation(mutualInformationNewLogical);
+[mutualInformationSorted, mutualInformationSortedInds] = sort(mutualInformationNew);
 plot(sort(mutualInformationNew))
 title('Mutual information across all neurons')
 xlabel('Session (neuron) #')
