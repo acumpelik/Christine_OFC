@@ -4,7 +4,7 @@ cd('C:\Christine_data')                         % access data folder
 [fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
 
 %% plotting PSTH for a single session
-f_ind = 673;                                    % choose a session
+f_ind = 157;                                    % choose a session
 load(strcat([fnames{f_ind},'.mat']))            % load session
 [~, chosenval, hits, ~] = parse_choices(S);     % import the following from parse_choices:
                                                 % chosenval = reward amount rat received

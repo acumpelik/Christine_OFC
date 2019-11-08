@@ -4,7 +4,7 @@
 %how I have worked with this dataset. cmc 6/28/19
 
 [fnames, units, ~, ~] = getfnames; % get the filenames from the excel sheet, and determine whether multiunit
-for m = 741 % 1:length(fnames); % only select neuron # 76
+for m = 710 % 1:length(fnames); % only select neuron # 76
      load(strcat(['parsed_data', filesep, fnames{m}, '.mat'])); %hmats were generated using save_heatmats.m
                     % cds to the parsed_data folder and opens the .mat file
                     % filesep just generates forward or backslashes
