@@ -2,7 +2,7 @@
 %sampels script to look at psth by reward volume
 
 %make sure to change to where yoru directory of data lives!
-cd('~/projects/ofc/data/PhysiologyData/Christine_OFC_2019')
+cd('C:\Christine_data\')
 [fnames, units, ~, ~] = getfnames;
 f_ind = 741;
 

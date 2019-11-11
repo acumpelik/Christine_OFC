@@ -46,7 +46,7 @@ title('end trial aligned')
 
 %calc raster plots
 %load origininal data
-datadir =  '/Users/dhocker/projects/ofc/data/PhysiologyData/Christine_OFC_2019/parsed_data/';
+datadir =  'C:\Christine_data\parsed_data\';
 a = load(strcat([datadir,A{ind}.fname]));
 
 figure(2+offset)

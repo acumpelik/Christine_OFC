@@ -1,7 +1,7 @@
 %script to compress the start, choice, and poke data into 3 separate files
 %just so that you aren't opening up tons of files
 
-cd('C:\Christine_OFC_2019')
+cd('C:\Christine_data\')
 [fnames, ~, ~, ~] = getfnames;
 
 
@@ -27,10 +27,10 @@ cd('C:\Christine_OFC_2019')
 
 
 %type = 'start'; %concat_ofc_start
-type = 'pokeend'; %concat_ofc_pokeend
-%type = 'choice'; %concat_ofc_choice
-%type = 'lastflash'; %concat_lastflash
-%type = 'end'; %concat_lastflash
+% type = 'pokeend'; %concat_ofc_pokeend
+% type = 'choice'; %concat_ofc_choice
+% type = 'lastflash'; %concat_lastflash
+type = 'end'; %concat_lastflash
 
 
 %create a data structure
