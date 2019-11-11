@@ -1,6 +1,6 @@
 %% load session and find trials where each reward volume was presented
 session = 741;
-loadSession
+loadSession(session)
 numTrials = length(hmat_start);
 
 leftVol = S.pd{1, 1}.this_left_volume;
