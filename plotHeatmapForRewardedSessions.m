@@ -9,7 +9,7 @@ usableInds = find(usableVec);               % indices of usable sessions
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 for j = 1:numUsableSessions
     if  A{usableInds(j)}.isUsable           % if session is usable, grab correct index
-     hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 );
+     hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 ); % binned spikes for usable sessions
     end
     
     % average number (over trials) of spikes for each session.
@@ -18,29 +18,34 @@ for j = 1:numUsableSessions
     avgSpikesPerSession(j) = nanmean(A{usableInds(j)}.nspikes);
 end
 
-%% z-score PSTH
-% % subtract the mean firing rate and normalize by std
-% 
-% hmat_sess_sorted(end, :);                   % choose highest firing rate session
-% plot(A{1}.xvec, hmat_sess_sorted(end, :), 'k','linewidth',2)    % plot original PSTH
-% 
-% avgFR = mean(hmat_sess_sorted(end, :));     % find the session's avg firing rate
-% normalized_PSTH = hmat_sess_sorted(end, :) ./ avgFR;    % divide each bin by average firing rate
-
-% plot(A{1}.xvec, normalized_PSTH)            % plot z-scored PSTH
-
-%% plot z-scored heatmap
-
+%% normalize (z-score) heatmap and plot
 % order the data
 [sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession);
 hmat_sess_sorted = hmat_usable(indicesAvgNumSpikes,:);
 
+% z-score
 avgFR_allsessions = mean(hmat_sess_sorted, 2);  % find mean of hmat_sess_sorted rows
 std_allsessions = std(hmat_sess_sorted, 0, 2);  % find STD of hmat_sess_sorted rows; w = 0 (default)
 normalized_hmat = (hmat_sess_sorted - avgFR_allsessions) ./ std_allsessions;
 
+%%
+% arrange by peak onset
+peakrange_min = 21; %first time bin to look for the peak
+peakrange_max = 61; %last time bin to look for the peak
+
+peaktime = zeros(1,numUsableSessions);
+for j = 1:numUsableSessions
+    [peakmax,pind] = max(normalized_hmat(j,peakrange_min:peakrange_max));
+    peaktime(j) = A{1}.xvec(pind);
+end
+
+[B_pmax,I_pmax] = sort(peaktime);
+hmat_sess_zscore_peaksorted = normalized_hmat(I_pmax,:);
+hmat_sess_peaksorted = hmat_sess_sorted(I_pmax,:);
+%%
+% plot
 imagesc(A{1}.xvec, 1:numUsableSessions, normalized_hmat)
-title('z-scored heatmap of firing rate for each session')
+title('z-scored heatmap of firing rate for each session; aligned to trial start')
 colormap default
 xlabel('time (s)')
 ylabel('session')
