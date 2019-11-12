@@ -4,8 +4,8 @@ cd('C:\Christine_data')                         % access data folder
 [fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
 
 %% plotting PSTH for a single session
-f_ind = 157;                                    % choose a session
-load(strcat([fnames{f_ind},'.mat']))            % load session
+session = 157;                                  % choose a session
+load(strcat([fnames{session},'.mat']))          % load session
 [~, chosenval, hits, ~] = parse_choices(S);     % import the following from parse_choices:
                                                 % chosenval = reward amount rat received
                                                 % hits = 1 if the rat got water on that trial, 0 if
@@ -38,7 +38,7 @@ plot(xvec_start,nanmean(hmat_start(R48_mask,:),1),'linewidth',2)
 set(gca,'fontsize',15)
 xlabel('time (s)')
 ylabel('rate (Hz)')
-title(strcat('PSTH, single neuron session',{' '}, num2str(f_ind), ', by reward volume'))
+title(strcat('PSTH, single neuron session',{' '}, num2str(session), ', by reward volume'))
 legend('averaged','6 ul','12','24','48')
 
 % % save plot if desired, add a timestamp
