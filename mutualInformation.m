@@ -1,9 +1,11 @@
 %% load session and find trials where each reward volume was presented
 session = 741;
-loadSession(session)
+loadSession
 numTrials = length(hmat_start);
 
+% find left and right rewarded trials
 leftVol = S.pd{1, 1}.this_left_volume;
+rightVol = S.pd{1, 1}.this_right_volume;
 % unique(leftVol)
 
 %% find spike probability given reward volume P(X|Y)
