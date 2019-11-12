@@ -1,4 +1,4 @@
-% sample script to look at PSTH by reward volume
+% sample script to look at PSTH by reward volume for a single session
 % formerly example_plot_for_Andrea.m
 cd('C:\Christine_data')                         % access data folder
 [fnames, units, ~, ~] = getfnames;              % load filenames and info about multiunits
