@@ -1,19 +1,21 @@
-%% load session and find trials where each reward volume was presented
+%% load session and find volume of reward on each side for each trial
 session = 741;
 loadSession
 numTrials = length(hmat_start);
 
-% find left and right rewarded trials
+% find left and right rewarded trials; NOTE: in later code this was replaced with parsechoices and
+% chosenval
 leftVol = S.pd{1, 1}.this_left_volume;
 rightVol = S.pd{1, 1}.this_right_volume;
-% unique(leftVol)
+% unique(leftVol) % 6, 12, 24, 48
 
 %% find spike probability given reward volume P(X|Y)
-% bin spikes in a way that each bin has only 0 or 1 spikes
+% Bernoulli: bin spikes in a way that each bin has only 0 or 1 spikes
 
+% we're only interested in time when clicks are being presented (indicating reward size)
 % find longest stimOn period:
-startTimes = cellfun(@(x) x(1), handles.lbups);
-endTimes = cellfun(@(x) x(end), handles.lbups);
+startTimes = cellfun(@(x) x(1), handles.lbups);         % trial start times
+endTimes = cellfun(@(x) x(end), handles.lbups);         % trial end times
 durs = endTimes - startTimes;                           % durations
 [maxTrialDur, maxTrialIndex] = max(durs);               % find duration and index of longest trial
 
@@ -22,12 +24,13 @@ xvec = 0:dt:maxTrialDur;                                % bins
 numBins = numel(xvec);                                  % number of bins
 binEdges = [xvec,xvec(end)+dt];                         % define the bin edges
 
+% find spike times when the clicks are being presented
 for ii = 1:numTrials
     startTime = handles.lbups{ii}(1);
     endTime = handles.lbups{ii}(end);
     these = find(spiketimes>=startTime & spiketimes<=endTime);
-    spikesStim = spiketimes(these);
-
+    spikesStim = spiketimes(these);                     % spike times when clicks are being presented
+    spikesStim = spikesStim - startTime;                % align to start time
     yind = discretize(spikesStim,binEdges);             % find indices of spikes
     for m = 1:numBins
         spikesBinned(ii,m) = sum(numel(spikesStim(yind==m)));
@@ -37,7 +40,7 @@ end
 % % verify that bins only have 0 or 1 spikes
 % unique(spikesBinned)
 
-numSpikesPerTrial = sum(spikesBinned, 2);
+numSpikesPerTrialStimOn = sum(spikesBinned, 2);
 
 %% find only trials where the animal was rewarded n uL
 [~, chosenval, ~, ~, ~] = parse_choices(S);
