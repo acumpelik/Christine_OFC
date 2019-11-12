@@ -1,7 +1,7 @@
 %% generate heatmap of all rewarded session
-importDataset
+loadUsableDataset
 
-% define a heatmap mask with filtered (usable) sessions
+% first define a heatmap mask with filtered (usable) sessions
 hmat_usable = zeros(numUsableSessions,numel(A{1}.xvec));
 
 % loop over each session, and add PSTH to hmat;
