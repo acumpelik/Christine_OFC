@@ -1,6 +1,6 @@
 % plot ISIs
-% dependencies: findAvgFR
-
+% dependencies: find_avgfr
+% find_avgrfr
 %% Plot all ISIs
 ISIs = diff(spiketimes);
 histogram(ISIs)

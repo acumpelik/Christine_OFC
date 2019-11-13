@@ -1,7 +1,7 @@
 %% This script will find the average firing rate for all neurons.
 %% Count spikes only from trials and windows
 
-importDataset
+loadUsableDataset
 
 numSessions = length(fnames);
 avgfr_session = zeros(1, numSessions);
