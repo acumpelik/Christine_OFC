@@ -2,6 +2,8 @@
 % Bernoulli distribution
 dt = 0.001;
 [xvec,spikes_binned] = binspikes(spiketimes, handles, "start",dt,-2,4,2);
+
+[~, chosenval, hits, ~] = parse_choices(S);
 %% find (distribution of) spiking probability
 % first find the mean probability
 % uniqueVals = unique(unique(spikes_binned)); % make sure that spike # is either 0 and 1
@@ -39,7 +41,6 @@ spikesR12 = [];
 spikesR24 = [];
 spikesR48 = [];
 
-[~, chosenval, ~, ~] = parse_choices(S);
 for trial = 1:numTrials
     if chosenval(trial)==6
         spikesR6 = [spikesR6, binnedSpikesStimPresent{trial}];

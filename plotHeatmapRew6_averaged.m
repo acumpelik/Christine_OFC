@@ -1,5 +1,5 @@
 clear;clc
-importDataset
+loadUsableDataset
 %% generate heatmap of all trials where the rat got 6 uL
 % find all trials where chosenval==6 and session is usable
 sessionsMask = zeros(numUsableSessions, 1);         % make a column vector with all usable sessions
