@@ -1,5 +1,7 @@
 %% ACG by trial - bin each trial
 
+% first run loadSession.m
+
 %%%%%% PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dt = 0.001;                                         % bin size in s
 wndw = 1;                                           % window before and after trial
@@ -57,7 +59,7 @@ closeup_lags = lags(4952:5052);
 %% plot
 figure
 ACG = bar(closeup_lags, closeup);
-title(['Session #', num2str(session)])
+title(['Session #', num2str(session), ', firing rate 70.03 Hz.']) % I should make the FR not hard-coded
 xlabel('time (ms)')
 ylabel('correlation')
 xlim([-50 50])
