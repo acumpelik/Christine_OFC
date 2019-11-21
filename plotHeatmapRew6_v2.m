@@ -18,19 +18,15 @@ for session = 1:numUsableSessions
      R6trialInds = find(R6trialsMask); % find 6uL indices
      R6trials = zeros(numR6trials, length(A{1}.xvec)); % designate matrix with 6uL trials for session
          for trial = 1:numR6trials
-             R6trials(trial, :) = A{session}.hmat(R6trialInds(trial), :); % copy avg FR for 6uL trial
+             R6trials(trial, :) = A{usableInds(session)}.hmat(R6trialInds(trial), :); % copy avg FR for 6uL trial
          end
      sessionAvg(session, :) = mean(R6trials);
     end
     R6trialsAvgOverSession(session, :) = mean(R6trials);
-%     % average number (over trials) of spikes for each session.
-%     % can change to firing rate if you want, would need to make sure time
-%     % corresponds to when those spikes counts were taken
-%     avgSpikesPerSession(j) = nanmean(A{usableInds(j)}.nspikes);
 end
 
 % % plot R6 trials for a single session (not averaged)
-% imagesc(A{1}.xvec, 1:numR6trials, R6trials)
+imagesc(A{1}.xvec, 1:numR6trials, R6trials)
 
 %%
 
