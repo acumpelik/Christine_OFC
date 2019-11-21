@@ -47,6 +47,7 @@ hmat_sess_peaksorted = hmat_sess_sorted(I_pmax,:);
 imagesc(A{1}.xvec, 1:numUsableSessions, hmat_sess_zscore_peaksorted) % normalized_hmat
 title('z-scored heatmap of average firing rate for each session; aligned to trial start')
 colormap default
+caxis([-6, 4])
 xlabel('time (s)')
 ylabel('session')
 set(gca,'fontsize',13)

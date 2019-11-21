@@ -62,6 +62,7 @@ imagesc(A{1}.xvec, 1:numUsableSessions, hmat_sess_zscore_peaksorted) %R24trialsA
 title(...
    'z-scored heatmap of average firing rate for 24 uL trials within each session; sorted by peak onset')
 colormap default
+caxis([-6, 4])
 xlabel('time (s)')
 ylabel('session')
 set(gca,'fontsize',13)
