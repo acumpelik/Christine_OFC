@@ -1,39 +1,39 @@
 %% generate heatmap of all rewarded session
 loadUsableDataset
 
-% first define a heatmap mask with filtered (usable) sessions; R6 trials averaged over session
+% first define a heatmap mask with filtered (usable) sessions; R12 trials averaged over session
 usableInds = find(usableVec);               % indices of usable sessions
-R6trialsAvgOverSession = zeros(numUsableSessions, length(A{1}.xvec));
+R12trialsAvgOverSession = zeros(numUsableSessions, length(A{1}.xvec));
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 
-% loop over each session, find R6 trials, average them and add avg to hmat;
+% loop over each session, find R12 trials, average them and add avg to hmat;
 for session = 1:numUsableSessions
     if  A{usableInds(session)}.isUsable           % if session is usable, grab correct index
      
-     % filter out trials with 6uL
-     R6trialsMask = A{usableInds(session)}.chosenval==6; % logical with trials where rat gets 6uL
-     numR6trials = sum(R6trialsMask); % count 6uL trials
-     R6trialInds = find(R6trialsMask); % find 6uL indices
-     R6trials = zeros(numR6trials, length(A{1}.xvec)); % designate matrix with 6uL trials for session
-         for trial = 1:numR6trials
-             % copy avg FR for 6uL trial
-             R6trials(trial, :) = A{usableInds(session)}.hmat(R6trialInds(trial), :);
+     % filter out trials with 12uL
+     R12trialsMask = A{usableInds(session)}.chosenval==12; % logical with trials where rat gets 12uL
+     numR12trials = sum(R12trialsMask); % count 12uL trials
+     R12trialInds = find(R12trialsMask); % find 12uL indices
+     R12trials = zeros(numR12trials, length(A{1}.xvec)); % designate matrix with 12uL trials for session
+         for trial = 1:numR12trials
+             % copy avg FR for 12uL trial
+             R12trials(trial, :) = A{usableInds(session)}.hmat(R12trialInds(trial), :);
          end
-%      sessionAvg(session, :) = mean(R6trials);
+%      sessionAvg(session, :) = mean(R12trials);
     end
     
     % average trials from this session and add to main heatmap
-    R6trialsAvgOverSession(session, :) = mean(R6trials);
+    R12trialsAvgOverSession(session, :) = mean(R12trials);
     avgSpikesPerSession(session) = nanmean(A{usableInds(session)}.nspikes);
 end
 
-% % plot R6 trials for a single session (not averaged)
-% imagesc(A{1}.xvec, 1:numR6trials, R6trials)
+% % plot R12 trials for a single session (not averaged)
+% imagesc(A{1}.xvec, 1:numR12trials, R12trials)
 
 %% normalize (z-score) heatmap and plot
 % order the data
 [sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession);
-hmat_sorted = R6trialsAvgOverSession(indicesAvgNumSpikes, :);
+hmat_sorted = R12trialsAvgOverSession(indicesAvgNumSpikes, :);
 
 % z-score
 avgFR_allsessions = mean(hmat_sorted, 2);  % find mean of hmat_sess_sorted rows
@@ -56,11 +56,11 @@ hmat_sess_zscore_peaksorted = normalized_hmat(I_pmax,:);
 hmat_sess_peaksorted = hmat_sorted(I_pmax,:);
 %%
 % plot
-imagesc(A{1}.xvec, 1:numUsableSessions, hmat_sess_zscore_peaksorted) %R6trialsAvgOverSession
+imagesc(A{1}.xvec, 1:numUsableSessions, hmat_sess_zscore_peaksorted) %R12trialsAvgOverSession
 % imagesc(A{1}.xvec, 1:numUsableSessions, normalized_hmat) % normalized_hmat
 
 title(...
-    'z-scored heatmap of average firing rate for 6 uL trials within each session; sorted by peak onset')
+   'z-scored heatmap of average firing rate for 12 uL trials within each session; sorted by peak onset')
 colormap default
 xlabel('time (s)')
 ylabel('session')
