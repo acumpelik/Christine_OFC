@@ -57,12 +57,12 @@ closeup = sumcrossNew(4952:5052);
 closeup_lags = lags(4952:5052);
 
 %% plot
-figure
-ACG = bar(closeup_lags, closeup);
-title(['Session #', num2str(session), ', firing rate 70.03 Hz.']) % I should make the FR not hard-coded
-xlabel('time (ms)')
-ylabel('correlation')
-xlim([-50 50])
+% figure
+% ACG = bar(closeup_lags, closeup);
+% title(['#', num2str(session)]) % I should make the FR not hard-coded
+% xlabel('time (ms)')
+% ylabel('correlation')
+% xlim([-50 50])
 
 %% save as .fig and .jpg
 % date = char(datetime('now', 'Format', 'MMddyyyy_HHmmss'));
