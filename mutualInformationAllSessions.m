@@ -1,7 +1,9 @@
+% for all sessions
+
 [fnames, units, ~, ~, rats] = getfnames;
 numSessions = length(fnames);
 mutualInformation = zeros(numSessions, 1);
-for session = 1:10 %numSessions
+for session = 1:numSessions
     load(strcat(['C:\Christine_data\parsed_data', filesep, fnames{session}, '.mat']))
     
     dt = 0.001;
@@ -92,7 +94,7 @@ title('Mutual information across all neurons')
 xlabel('Session (neuron) #')
 ylabel('Mutual information (bits)')
 
-% NOTES
+% NOTES FROM MEETING WITH CRISTINA
 % plot mutual information on log scale
 % does this change qualitatively on error trials?
 % other stimulus dimensions: probability? have stimulus as multidimensional: reward x probability

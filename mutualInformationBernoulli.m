@@ -1,6 +1,8 @@
 % Calculating the mutual information between spiking probability and reward volume
 % Bernoulli distribution
 dt = 0.001;
+% for single session
+
 [xvec,spikes_binned] = binspikes(spiketimes, handles, "start",dt,-2,4,2);
 
 [~, chosenval, hits, ~] = parse_choices(S);
