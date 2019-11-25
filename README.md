@@ -4,11 +4,11 @@ This is a repository of code made to analyze Christine Constantinople's data fro
 
 ## Overview of scripts:
 ### Code from David/Christine
-Example_plot_for_David.m: plots heatmap for rewarded and unrewarded trials, PSTH for rewarded and unrewarded, and waveform shape on each electrode
+**Example_plot_for_David.m**: plots heatmap for rewarded and unrewarded trials, PSTH for rewarded and unrewarded, and waveform shape on each electrode
 
-concat_ofc.m: outputs data structure A, which can be saved and used by other scripts instead of importing raw data each time
+**concat_ofc.m**: outputs data structure A, which can be saved and used by other scripts instead of importing raw data each time
 
-graphgen_ofc_examine.m: plots PSTHs aligned to certain events: trial start, port choice, last flash, and trial end; also raster plot
+**graphgen_ofc_examine.m**: plots PSTHs aligned to certain events: trial start, port choice, last flash, and trial end; also raster plot
 
 getfnames.m: get filenames, also units, depth, duplicate, rat, days
 
