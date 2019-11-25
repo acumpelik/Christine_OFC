@@ -74,4 +74,5 @@ plotHeatmapRew12.m: plots 12uL trials averaged over each session, arranged by pe
 
 plotHeatmapRew24.m: plots 24uL trials averaged over each session, arranged by peak onset
 
-plotHeatmapRew48.m: plots 48uL trials averaged over each session, arranged by peak onset
+**plotHeatmapRew48.m**: plots 48uL trials averaged over each session, arranged by peak onset
+**plotHeatmapForAllSessions_withRewardVolumes.m**: links plotHeatmapForAllSessions with the individual reward volumes, with the main intention of keeping the ordering and z-scoring (mean and SD values) from the grouped plot
