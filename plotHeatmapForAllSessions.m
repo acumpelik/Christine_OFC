@@ -2,14 +2,14 @@
 loadUsableDataset
 
 % first define a heatmap mask with filtered (usable) sessions
-hmat_usable = zeros(numUsableSessions,numel(A{1}.xvec));
+hmat_grouped = zeros(numUsableSessions,numel(A{1}.xvec));
 
 % loop over each session, and add PSTH to hmat;
 usableInds = find(usableVec);               % indices of usable sessions
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 for j = 1:numUsableSessions
     if  A{usableInds(j)}.isUsable           % if session is usable, grab correct index
-     hmat_usable(j,:) = nanmean( A{usableInds(j)}.hmat,1 ); % binned spikes for usable sessions
+     hmat_grouped(j,:) = nanmean( A{usableInds(j)}.hmat,1 ); % binned spikes for usable sessions
     end
     
     % average number (over trials) of spikes for each session.
@@ -21,7 +21,7 @@ end
 %% normalize (z-score) heatmap and plot
 % order the data
 [sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession);
-hmat_sess_sorted = hmat_usable(indicesAvgNumSpikes,:);
+hmat_sess_sorted = hmat_grouped(indicesAvgNumSpikes,:);
 
 % z-score
 avgFR_allsessions = mean(hmat_sess_sorted, 2);  % find mean of hmat_sess_sorted rows

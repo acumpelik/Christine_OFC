@@ -3,7 +3,7 @@ loadUsableDataset
 
 % first define a heatmap mask with filtered (usable) sessions; R48 trials averaged over session
 usableInds = find(usableVec);               % indices of usable sessions
-R48trialsAvgOverSession = zeros(numUsableSessions, length(A{1}.xvec));
+hmat_R48 = zeros(numUsableSessions, length(A{1}.xvec));
 avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 
 % loop over each session, find R48 trials, average them and add avg to hmat;
@@ -23,7 +23,7 @@ for session = 1:numUsableSessions
     end
     
     % average trials from this session and add to main heatmap
-    R48trialsAvgOverSession(session, :) = mean(R48trials);
+    hmat_R48(session, :) = mean(R48trials);
     avgSpikesPerSession(session) = nanmean(A{usableInds(session)}.nspikes);
 end
 
@@ -33,7 +33,7 @@ end
 %% normalize (z-score) heatmap and plot
 % order the data
 [sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession);
-hmat_sorted = R48trialsAvgOverSession(indicesAvgNumSpikes, :);
+hmat_sorted = hmat_R48(indicesAvgNumSpikes, :);
 
 % z-score
 avgFR_allsessions = mean(hmat_sorted, 2);  % find mean of hmat_sess_sorted rows

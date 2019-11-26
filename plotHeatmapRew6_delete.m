@@ -1,10 +1,6 @@
-%% generate heatmap of all rewarded session
-loadUsableDataset
 
-% first define a heatmap mask with filtered (usable) sessions; R6 trials averaged over session
-usableInds = find(usableVec);               % indices of usable sessions
 hmat_R6 = zeros(numUsableSessions, length(A{1}.xvec));
-avgSpikesPerSession = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
+avgSpikesPerSession_R6 = zeros(numUsableSessions,1); % define mask for avg # of spikes per session
 
 % loop over each session, find R6 trials, average them and add avg to hmat;
 for session = 1:numUsableSessions
@@ -24,7 +20,7 @@ for session = 1:numUsableSessions
     
     % average trials from this session and add to main heatmap
     hmat_R6(session, :) = mean(R6trials);
-    avgSpikesPerSession(session) = nanmean(A{usableInds(session)}.nspikes);
+    avgSpikesPerSession_R6(session) = nanmean(A{usableInds(session)}.nspikes);
 end
 
 % % plot R6 trials for a single session (not averaged)
@@ -32,7 +28,7 @@ end
 
 %% normalize (z-score) heatmap and plot
 % order the data
-[sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession);
+[sessionsByNumSpikes,indicesAvgNumSpikes] = sort(avgSpikesPerSession_R6);
 hmat_sorted = hmat_R6(indicesAvgNumSpikes, :);
 
 % z-score
